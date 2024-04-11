@@ -1,20 +1,20 @@
-<%= form_with(model: @project, local: true) do |form| %>
+<%= form_with(model: @project, local: true) do |f| %>
   <div class="field">
-    <%= form.label :name, class: "block font-semibold" %>
-    <%= form.text_field :name, class: "block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+    <%= f.label :name, class: "block font-semibold" %>
+    <%= f.text_field :name, class: "block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
   </div>
   <div class="field">
-    <%= form.label :description, class: "block font-semibold" %>
-    <%= form.text_field :description, class: "block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+    <%= f.label :description, class: "block font-semibold" %>
+    <%= f.text_field :description, class: "block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
   </div>
-  <hr class="my-4">
   <h3 class="text-lg font-semibold">Tasks</h3>
   <div id="tasks">
-    <!-- Task fields will be rendered here -->
+    <%= f.fields_for :tasks do |task| %>
+      <%= render "task_fields", :f => task %>
+    <% end %>
+    <div class="links">
+      <%= link_to_add_association 'Add Task', f, :tasks, class: 'btn btn-success' %>
+    </div>
   </div>
-  <div class="links">
-    <%= link_to_add_association 'Add Task', form, :tasks, class: 'btn btn-success' %>
-  </div>
-  <hr class="my-4">
-  <%= form.submit 'Save', class: 'btn btn-primary' %>
+  <%= f.submit 'Save', class: 'btn btn-primary' %>
 <% end %>

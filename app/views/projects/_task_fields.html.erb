@@ -1,13 +1,11 @@
 <div class="nested-fields">
   <div class="field">
-    <label for="task_description">Description</label>
-    <input type="text" id="task_description" name="project[tasks_attributes][0][description]">
+    <%= f.label :description, class: "block font-semibold" %>
+    <%= f.text_field :description, class: "block w-full mt-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
   </div>
   <div class="field">
-    <input type="hidden" name="project[tasks_attributes][0][done]" value="0">
-    <input type="checkbox" id="task_done" name="project[tasks_attributes][0][done]">
-    <label for="task_done">Done</label>
+    <%= f.check_box :done %>
+    <%= f.label :done %>
   </div>
-  <a href="#" class="btn btn-danger remove-task">Remove Task</a>
+  <%= link_to_remove_association 'remove task', f, class: 'btn btn-danger' %>
 </div>
-<hr>
