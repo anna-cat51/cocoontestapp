@@ -13,6 +13,8 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   def new
     @project = Project.new
+    # 子モデルも作成
+    @project.tasks.build
   end
 
   # GET /projects/1/edit
@@ -58,13 +60,15 @@ class ProjectsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_project
-      @project = Project.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def project_params
-      params.require(:project).permit(:name, :description)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_project
+    @project = Project.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def project_params
+    # 子供のパラメータも追加
+    params.require(:project).permit(:name, :description, tasks_attributes: [:id, :description, :done, :_destroy])
+  end
 end
